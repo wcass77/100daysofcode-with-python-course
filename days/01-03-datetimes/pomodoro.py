@@ -4,7 +4,7 @@ from time import sleep
 import sys
 
 WORK_TIME = 3  # Minutes
-PLAY_TIME = 1  # Minutes
+PARTY_TIME = 1  # Minutes
 SLEEP_TIME = 5  # Seconds
 
 
@@ -19,16 +19,16 @@ def print_time_doing(seconds, activity):
     print(f"You've been {activity} for {minutes} minutes and {seconds} seconds!")
 
 
-def pomodoro(work_time=WORK_TIME, party_time=PLAY_TIME):
+def pomodoro(work_time=WORK_TIME, party_time=PARTY_TIME):
     start = datetime.now()
     _work_time = timedelta(minutes=work_time)
-    _play_time = timedelta(minutes=party_time)
+    _party_time = timedelta(minutes=party_time)
     print(f"You started working at {start}")
     while start + _work_time > datetime.now():
         print_time_doing((datetime.now() - start).seconds, "working")
         sleep(SLEEP_TIME)
     print("Party Time!")
-    while start + _work_time + play_time > datetime.now():
+    while start + _work_time + _party_time > datetime.now():
         print_time_doing((datetime.now() - start - _work_time).seconds, "partying")
         sleep(SLEEP_TIME)
     print("All done!")
