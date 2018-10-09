@@ -13,3 +13,6 @@ jupyter = "*"
 
 [requires]
 python_version = "3.7"
+
+[scripts]
+nb = "jupyter-notebook"
