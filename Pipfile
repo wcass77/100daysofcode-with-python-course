@@ -8,6 +8,7 @@ pylint = "*"
 black = "*"
 pytest = "*"
 jupyter = "*"
+art = "*"
 
 [dev-packages]
 
@@ -16,3 +17,6 @@ python_version = "3.7"
 
 [scripts]
 nb = "jupyter-notebook"
+
+[pipenv]
+allow_prereleases = true
