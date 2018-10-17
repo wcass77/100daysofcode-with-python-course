@@ -2,11 +2,7 @@ import random
 from art import tprint
 
 ROUNDS = 3  # The number of rounds of RPS to be played
-ROLLS = [
-    "rock",
-    "paper",
-    "sissors",
-]  # order such that each beats the previous item in list
+ROLLS = ["rock", "sissors", "paper"]  # must be odd number of ROLLS
 WIN = 2
 LOSE = 0
 DRAW = 1
@@ -15,11 +11,13 @@ DRAW = 1
 class Roll:
     """Class that holds a particular roll and knows the rules"""
 
+    pos_rolls = ROLLS
+
     def __init__(self, rps="random"):
-        if rps in ROLLS:
+        if rps in Roll.pos_rolls:
             self.name = rps
         elif rps == "random":
-            self.name = random.choice(ROLLS)
+            self.name = random.choice(Roll.pos_rolls)
         else:
             raise Exception("Invalid role")
 
@@ -30,9 +28,13 @@ class Roll:
         being for your role"""
         if self.name == your_roll.name:
             return (DRAW, DRAW)
-        my_roll_num = ROLLS.index(self.name)
-        your_roll_num = ROLLS.index(your_roll.name)
-        if (my_roll_num - 1) % len(ROLLS) == your_roll_num:
+        my_roll_num = Roll.pos_rolls.index(self.name)
+        your_roll_num = Roll.pos_rolls.index(your_roll.name)
+        winning_rolls = [
+            (my_roll_num + i + 1) % len(Roll.pos_rolls)
+            for i in range(len(Roll.pos_rolls) // 2)
+        ]
+        if your_roll_num in winning_rolls:
             return (WIN, LOSE)
         return (LOSE, WIN)
 
@@ -48,7 +50,7 @@ class Player:
         """add a new roll to player"""
         if self.cpu:
             self.rolls.append(Roll())
-        elif roll in ROLLS:
+        elif roll in Roll.pos_rolls:
             self.rolls.append(Roll(roll))
         else:
             raise Exception("Invalid role chosen")
@@ -62,13 +64,13 @@ class Player:
 
 def get_user_roll():
     roll = input(
-        f"What do you roll? Type full word or first letter. Possible values: {ROLLS}"
+        f"What do you roll? Type full word or first letter. Possible values: {Roll.pos_rolls}"
     )
-    if roll in ROLLS:
+    if roll in Roll.pos_rolls:
         return roll
     if len(roll) == 1:
-        for possible_role in ROLLS:
-            if roll == possible_role[0]:
+        for possible_role in Roll.pos_rolls:
+            if roll.lower() == possible_role[0].lower():
                 return possible_role
     print("Please enter a valid roll")
     return get_user_roll()
@@ -93,8 +95,8 @@ def play_rounds(player1, player2, rounds=ROUNDS):
             tprint(f"Both   chose   {player1.rolls[-1].name}")
 
 
-def main():
-    tprint("Rock\nPaper\nSissors", font="Epic")
+def main(game_name="Rock\nPaper\nSissors"):
+    tprint(game_name, font="Epic")
     name = input("What is your name?:")
     tprint(f"Welcome   {name}!", font="Doom")
     player = Player(name)
