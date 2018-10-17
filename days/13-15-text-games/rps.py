@@ -54,6 +54,9 @@ class Player:
     def new_result(self, result):
         self.record.append(result)
 
+    def score_delta(self, other_player):
+        return sum(self.record) - sum(other_player.record)
+
 
 def get_user_roll():
     roll = input(
@@ -69,31 +72,37 @@ def get_user_roll():
     return get_user_roll()
 
 
+def play_rounds(player1, player2, rounds=ROUNDS):
+    for _ in range(rounds):
+        tprint(f"Round   {len(player1.record)+1}")
+        player1.roll(get_user_roll())
+        player2.roll()
+        p1_result, p2_result = player1.rolls[-1].against(player2.rolls[-1])
+        player1.new_result(p1_result)
+        player2.new_result(p2_result)
+        if player1.record[-1] == WIN:
+            tprint("You   win!")
+            tprint(f"{player1.rolls[-1].name}   beats   {player2.rolls[-1].name}")
+        elif player1.record[-1] == LOSE:
+            tprint("You   lose!")
+            tprint(f"{player2.rolls[-1].name}   beats   {player1.rolls[-1].name}")
+        else:
+            tprint("It's   a   tie!")
+            tprint(f"Both   chose   {player1.rolls[-1].name}")
+
+
 def main():
     tprint("Rock\nPaper\nSissors", font="Epic")
     name = input("What is your name?:")
     tprint(f"Welcome   {name}!", font="Doom")
     player = Player(name)
     cpu = Player("Computer", cpu=True)
-    for round in range(ROUNDS):
-        player.roll(get_user_roll())
-        cpu.roll()
-        player_result, cpu_result = player.rolls[-1].against(cpu.rolls[-1])
-        player.new_result(player_result)
-        cpu.new_result(cpu_result)
-        tprint(f"Round   {round + 1}")
-        if player.record[-1] == WIN:
-            tprint("You win!")
-            tprint(f"{player.rolls[-1].name}   beats   {cpu.rolls[-1].name}")
-        elif player.record[-1] == LOSE:
-            tprint("You   lose!")
-            tprint(f"{cpu.rolls[-1].name}   beats   {player.rolls[-1].name}")
-        else:
-            tprint("It's   a   tie!")
-            tprint(f"Both   chose   {player.rolls[-1].name}")
-    # If there is a tie, the player wins
-    winner = player if sum(player.record) >= sum(cpu.record) else cpu
-    tprint(f"In {ROUNDS} rounds, {winner.name} won!")
+    play_rounds(player, cpu)
+    while player.score_delta(cpu) == 0:
+        tprint("No winner!\nPlay another round!")
+        play_rounds(player, cpu, rounds=1)
+    winner = player if player.score_delta(cpu) > 0 else cpu
+    tprint(f"In {len(player.record)} rounds, {winner.name} won!")
 
 
 if __name__ == "__main__":
