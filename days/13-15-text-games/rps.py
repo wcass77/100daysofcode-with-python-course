@@ -1,5 +1,5 @@
-from art import tprint
 import random
+from art import tprint
 
 ROUNDS = 3  # The number of rounds of RPS to be played
 ROLLS = [
@@ -20,6 +20,8 @@ class Roll:
             self.name = rps
         elif rps == "random":
             self.name = random.choice(ROLLS)
+        else:
+            raise Exception("Invalid role")
 
     def against(self, your_roll):
         """Returns WIN if I win, LOSE if I lose, and DRAW for a tie.
