@@ -95,13 +95,13 @@ def play_rounds(player1, player2, rounds=ROUNDS):
             tprint(f"Both   chose   {player1.rolls[-1].name}")
 
 
-def main(game_name="Rock\nPaper\nSissors"):
+def main(game_name="Rock\nPaper\nSissors", rounds=ROUNDS):
     tprint(game_name, font="Epic")
     name = input("What is your name?:")
     tprint(f"Welcome   {name}!", font="Doom")
     player = Player(name)
     cpu = Player("Computer", cpu=True)
-    play_rounds(player, cpu)
+    play_rounds(player, cpu, rounds=rounds)
     while player.score_delta(cpu) == 0:
         tprint("No winner!\nPlay another round!")
         play_rounds(player, cpu, rounds=1)
