@@ -68,6 +68,8 @@ def get_user_roll():
     )
     if roll in Roll.pos_rolls:
         return roll
+    if roll.lower() in [s.lower() for s in Roll.pos_rolls]:
+        return roll.capitalize()
     if len(roll) == 1:
         for possible_role in Roll.pos_rolls:
             if roll.lower() == possible_role[0].lower():
