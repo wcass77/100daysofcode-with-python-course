@@ -1,5 +1,6 @@
 {
     "python.pythonPath": "/Users/wcass/.local/share/virtualenvs/100_days_of_code-rvTAtOUO/bin/python",
     "python.formatting.provider": "black",
-    "editor.formatOnPaste": false
+    "editor.formatOnPaste": false,
+    "vsintellicode.python.completionsEnabled": true
 }
