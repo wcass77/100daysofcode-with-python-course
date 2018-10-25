@@ -2,5 +2,16 @@
     "python.pythonPath": "/Users/wcass/.local/share/virtualenvs/100_days_of_code-rvTAtOUO/bin/python",
     "python.formatting.provider": "black",
     "editor.formatOnPaste": false,
-    "vsintellicode.python.completionsEnabled": true
+    "vsintellicode.python.completionsEnabled": true,
+    "[python]": {
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": true
+        }
+    },
+    "python.unitTest.pyTestArgs": [
+        "days"
+    ],
+    "python.unitTest.unittestEnabled": false,
+    "python.unitTest.nosetestsEnabled": false,
+    "python.unitTest.pyTestEnabled": true
 }
