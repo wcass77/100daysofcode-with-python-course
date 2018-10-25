@@ -1,7 +1,10 @@
 import itertools
+import os
+import urllib.request
+
 import pytest
 
-# Bite 64
+# Bite 64 https://codechalleng.es/bites/64/
 
 
 names = "Tim Bob Julian Carmen Sofia Mike Kim Andre".split()
@@ -10,12 +13,11 @@ confirmed = [False, True, True, False, True]
 
 
 def get_attendees():
-    for participant in zip(names, locations, confirmed):
+    for participant in itertools.zip_longest(
+        names, locations, confirmed, fillvalue="-"
+    ):
         print(participant)
 
-
-if __name__ == "__main__":
-    get_attendees()
 
 # Tests
 
@@ -29,11 +31,15 @@ def test_get_attendees(capfd):
     assert "('Andre', '-', '-')" in output
 
 
-# Bite 17
+# Bite 17 https://codechalleng.es/bites/17/
 
 
-def friends_teams():
-    pass
+def friends_teams(friends, team_size=2, order_does_matter=False):
+    if order_does_matter:
+        teams = itertools.permutations(friends, team_size)
+    else:
+        teams = itertools.combinations(friends, team_size)
+    yield from teams
 
 
 # Tests
@@ -132,10 +138,8 @@ def test_team_of_three_order_does_matter(test_input, expected):
     assert test_input in combos
 
 
-# Bite 65
+# Bite 65 https://codechalleng.es/bites/65/
 
-import os
-import urllib.request
 
 # PREWORK
 DICTIONARY = os.path.join("/tmp", "dictionary.txt")
@@ -149,13 +153,18 @@ def get_possible_dict_words(draw):
     """Get all possible words from a draw (list of letters) which are
        valid dictionary words. Use _get_permutations_draw and provided
        dictionary"""
-    pass
+    return _get_permutations_draw(draw).intersection(dictionary)
 
 
 def _get_permutations_draw(draw):
     """Helper to get all permutations of a draw (list of letters), hint:
        use itertools.permutations (order of letters matters)"""
-    pass
+    all_permutations = itertools.permutations(draw, 1)
+    for r in range(2, len(draw) + 1):
+        all_permutations = itertools.chain(
+            all_permutations, itertools.permutations(draw, r)
+        )
+    return set(map(lambda letters: "".join(letters).lower(), all_permutations))
 
 
 # Tests
@@ -201,3 +210,7 @@ def test_max_word(draw, expected):
         assert max_word_value(words) in expected
     else:
         assert max_word_value(words) == expected
+
+
+if __name__ == "__main__":
+    get_attendees()
