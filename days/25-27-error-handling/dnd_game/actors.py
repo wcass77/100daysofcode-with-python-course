@@ -3,6 +3,10 @@ import random
 
 class Creature:
     def __init__(self, name, level):
+        if not isinstance(name, str):
+            raise TypeError("Creature name must be a string")
+        if not isinstance(level, int):
+            raise TypeError("level must be an int")
         self.name = name
         self.level = level
 
@@ -14,8 +18,10 @@ class Creature:
 class Dragon(Creature):
     def __init__(self, name, level, scaliness, breaths_fire):
         super().__init__(name, level)
+        if not isinstance(scaliness, int):
+            raise TypeError("Scaliness must be an int")
         self.scaliness = scaliness
-        self.breaths_fire = breaths_fire
+        self.breaths_fire = bool(breaths_fire)
 
     def defensive_roll(self):
         roll = super().defensive_roll()
@@ -27,7 +33,6 @@ class Dragon(Creature):
 
 
 class Wizard(Creature):
-
     def attack(self, creature):
         my_roll = self.defensive_roll()
         their_roll = creature.defensive_roll()
