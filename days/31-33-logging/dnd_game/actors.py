@@ -3,6 +3,7 @@ import random
 
 class Creature:
     def __init__(self, name, level):
+        # Log setting up creature
         if not isinstance(name, str):
             raise TypeError("Creature name must be a string")
         if not isinstance(level, int):

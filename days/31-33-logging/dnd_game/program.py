@@ -14,16 +14,21 @@ from actors import Creature, Dragon, Wizard
 def main():
     try:
         game = Game()
+        # Log game start
     except Exception as e:
         print(f"There was an error setting up the game: {e}")
+        # Log error here
         return
     game.print_header()
     try:
         game.loop()
+        # Log game exit
     except KeyboardInterrupt as e:
         print(f"\nKeyboard Interrupt: Quitting the game...")
+        # Log game exit by ctl-c
     except Exception as e:
         print(f"Exception during the game:{e}")
+        # Log uncaught exception and exit
 
 
 class Game:
@@ -32,6 +37,7 @@ class Game:
         self._setup_hero()
 
     def _setup_creatures(self):
+        # Log setting up creatures
         try:
             self.creatures = [
                 Creature("Bat", 5),
@@ -42,9 +48,11 @@ class Game:
             ]
         except TypeError as e:
             print(f"There was a problem creating the creatures")
+            # Log problem creating creatures
             raise e
 
     def _setup_hero(self):
+        # Log setting up hero
         try:
             self.hero = Wizard("Gandolf", 75)
         except TypeError as e:
@@ -60,18 +68,23 @@ class Game:
 
     def handle_command(self, cmd):
         if cmd == "a":
+            # Log wizard attacks
             if self.hero.attack(self.active_creature):
                 print("The wizard defeated {}".format(self.active_creature.name))
+                # Log wizard defeated creature
                 self.creatures.remove(self.active_creature)
             else:
                 print(
                     "The wizard has been defeated by the powerful {}".format(
                         self.active_creature.name
                     )
+                    # Log defeat
                 )
         elif cmd == "r":
             print("The wizard has become unsure of his power and flees!!!")
+            # Log wizard runs
         elif cmd == "l":
+            # Log Wizard looks around
             print(
                 "The wizard {} takes in the surroundings and sees:".format(
                     self.hero.name
@@ -87,7 +100,7 @@ class Game:
         while True:
 
             self.active_creature = random.choice(self.creatures)
-
+            # Log new opponent appears
             print(
                 "A {} of level {} has appear from a dark and foggy forest...".format(
                     self.active_creature.name, self.active_creature.level
@@ -102,9 +115,10 @@ class Game:
                     break
                 except ValueError as e:
                     print(f"Invalid command {e}. Try again")
-
+                    # Log invalid command
             if not self.creatures:
                 print("You've defeated all the creatures, well done!")
+                # Log victory
                 break
 
             print()
