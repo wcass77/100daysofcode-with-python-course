@@ -12,6 +12,7 @@ art = "*"
 pytest-cov = "*"
 requests = "*"
 wget = "*"
+logbook = "*"
 
 [dev-packages]
 
