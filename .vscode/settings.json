@@ -18,5 +18,6 @@
         "Gandolf",
         "ttack",
         "unaway"
-    ]
+    ],
+    "python.linting.pylintEnabled": true
 }
