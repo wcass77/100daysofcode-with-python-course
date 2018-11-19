@@ -8,10 +8,14 @@ Life is less than 0: Should tell you that you're dead and exit
 """
 import random
 
+import logbook
+
 from actors import Creature, Dragon, Wizard
 
 
 def main():
+    logbook.TimedRotatingFileHandler("rpg_log", level=logbook.TRACE).push_application()
+    app_logger = logbook.Logger("App")
     try:
         game = Game()
         # Log game start
