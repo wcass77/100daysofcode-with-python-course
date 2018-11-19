@@ -17,22 +17,26 @@ def main():
     logbook.TimedRotatingFileHandler("rpg_log", level=logbook.TRACE).push_application()
     app_logger = logbook.Logger("App")
     try:
+        app_logger.trace("Setting up game ...")
         game = Game()
-        # Log game start
+        app_logger.trace("Game setup finished")
     except Exception as e:
         print(f"There was an error setting up the game: {e}")
-        # Log error here
+        app_logger.error("There was an error setting up the game:")
+        app_logger.exception(e)
         return
     game.print_header()
     try:
+        app_logger.trace("Entering Game Loop")
         game.loop()
-        # Log game exit
+        app_logger.trace("Exited game loop normally")
     except KeyboardInterrupt as e:
         print(f"\nKeyboard Interrupt: Quitting the game...")
-        # Log game exit by ctl-c
+        app_logger.warn("Keyboard Interrupt: Quitting the game...")
     except Exception as e:
         print(f"Exception during the game:{e}")
-        # Log uncaught exception and exit
+        app_logger.error("Uncaught exception, exiting the game")
+        app_logger.exception(e)
 
 
 class Game:
