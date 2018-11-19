@@ -40,12 +40,14 @@ def main():
 
 
 class Game:
+    log = logbook.Logger("Game Log")
+
     def __init__(self):
         self._setup_creatures()
         self._setup_hero()
 
     def _setup_creatures(self):
-        # Log setting up creatures
+        self.log.trace("Setting up creatures")
         try:
             self.creatures = [
                 Creature("Bat", 5),
@@ -56,15 +58,16 @@ class Game:
             ]
         except TypeError as e:
             print(f"There was a problem creating the creatures")
-            # Log problem creating creatures
+            self.log.error("Problem setting up creatures!")
             raise e
 
     def _setup_hero(self):
-        # Log setting up hero
+        self.log.trace("Setting up Hero")
         try:
             self.hero = Wizard("Gandolf", 75)
         except TypeError as e:
             print(f"There was a problem creating the hero")
+            self.log.error("Problem setting up hero!")
             raise e
 
     @staticmethod
@@ -76,23 +79,23 @@ class Game:
 
     def handle_command(self, cmd):
         if cmd == "a":
-            # Log wizard attacks
+            self.log.trace(f"Hero attacks! {self.active_creature.name}")
             if self.hero.attack(self.active_creature):
                 print("The wizard defeated {}".format(self.active_creature.name))
-                # Log wizard defeated creature
+                self.log.trace(f"Hero wins!")
                 self.creatures.remove(self.active_creature)
             else:
                 print(
                     "The wizard has been defeated by the powerful {}".format(
                         self.active_creature.name
                     )
-                    # Log defeat
                 )
+                self.log.trace("Hero loses!")
         elif cmd == "r":
             print("The wizard has become unsure of his power and flees!!!")
-            # Log wizard runs
+            self.log.trace(f"Hero runs from {self.active_creature.name}")
         elif cmd == "l":
-            # Log Wizard looks around
+            self.log.trace(f"The wizard looks around")
             print(
                 "The wizard {} takes in the surroundings and sees:".format(
                     self.hero.name
@@ -101,6 +104,7 @@ class Game:
             for c in self.creatures:
                 print(" * {} of level {}".format(c.name, c.level))
         else:
+            self.log.warn(f"Invalid keyboard entry by user: {cmd}")
             raise ValueError(cmd)
 
     def loop(self):
@@ -108,7 +112,7 @@ class Game:
         while True:
 
             self.active_creature = random.choice(self.creatures)
-            # Log new opponent appears
+            self.log.trace(f"New opponent appears: {self.active_creature.name}")
             print(
                 "A {} of level {} has appear from a dark and foggy forest...".format(
                     self.active_creature.name, self.active_creature.level
@@ -123,10 +127,9 @@ class Game:
                     break
                 except ValueError as e:
                     print(f"Invalid command {e}. Try again")
-                    # Log invalid command
             if not self.creatures:
                 print("You've defeated all the creatures, well done!")
-                # Log victory
+                self.log.trace("Hero wins!")
                 break
 
             print()
