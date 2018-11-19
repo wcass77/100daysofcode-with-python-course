@@ -14,7 +14,9 @@ from actors import Creature, Dragon, Wizard
 
 
 def main():
-    logbook.TimedRotatingFileHandler("rpg_log", level=logbook.TRACE).push_application()
+    logbook.TimedRotatingFileHandler(
+        "rpg_log.log", level=logbook.TRACE
+    ).push_application()
     app_logger = logbook.Logger("App")
     try:
         app_logger.trace("Setting up game ...")
