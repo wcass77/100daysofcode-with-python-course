@@ -25,6 +25,7 @@ def complement(base):
         return "C"
     if base == "C":
         return "G"
+    raise ValueError("Invalid DNA base. Must be uppercase ATGC")
 
 
 def reverse_complement(seq):
