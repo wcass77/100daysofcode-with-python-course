@@ -59,8 +59,7 @@ def print_oligo(forward, reverse, overhang=0):
     print(" " * 4, *rungs)
     print("3' -", *reverse, "- 5'")
 
-
-if __name__ == "__main__":
+def main():
     oligos = [make_oligos(sgrna) for sgrna in SGRNA]
     print("-" * 88 + "\n")
     for n, oligo in enumerate(oligos):
@@ -69,3 +68,6 @@ if __name__ == "__main__":
         print_oligo(oligo[0], oligo[1], 4)
         print("-" * 88)
         print("")
+
+if __name__ == "__main__":
+    main()
