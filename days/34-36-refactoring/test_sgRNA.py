@@ -1,6 +1,6 @@
 import pytest
 
-from sgRNA import complement, main
+from sgRNA import complement, main, reverse_complement
 
 
 def test_main(capsys):
@@ -28,3 +28,23 @@ def test_complement_invalid_bases():
         complement("X")
     with pytest.raises(Exception):
         complement("AC")
+
+
+def test_reverse_complement():
+    seq = "ATGCATGC"
+    seq_rev_complement = "GCATGCAT"
+
+    assert reverse_complement(seq) == seq_rev_complement
+    assert reverse_complement(seq_rev_complement) == seq
+    assert reverse_complement(reverse_complement(seq)) == seq
+
+
+def test_reverse_complement_input():
+    with pytest.raises(Exception):
+        reverse_complement("acgt")
+    with pytest.raises(Exception):
+        reverse_complement("AUGC")
+    with pytest.raises(Exception):
+        reverse_complement("AC GT")
+    with pytest.raises(Exception):
+        reverse_complement("NATGC")
