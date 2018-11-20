@@ -8,9 +8,9 @@ SGRNA = [  # The target sgRNA sequences - should be 20 BP
     "AGGGGAGTTCCATGCCTGAT",
     "GTTAACTTCCCTCACCTGTC",
 ]
-SSOVERHANG = "ACCG"  # The overhang that goes in front of the forward strand
-ASOVERHANG = "AAAC"  # The overhang that goes in front of the reverse strand
-NAME = "ITGA10_sgi"
+FORWARD_OVERHANG = "ACCG"  # The overhang that goes in front of the forward strand
+REVERSE_OVERHANG = "AAAC"  # The overhang that goes in front of the reverse strand
+NAME = "ITGA10_sgi"  # The base name constructs
 
 
 def complement(base):
@@ -42,8 +42,8 @@ def make_oligos(sgrna):
         raise TypeError("The sgRNA sequence must be 20 BP long")
     if sgrna[0] == "G":  # Trim because there is G in overhang
         sgrna = sgrna[1:20]
-    forward = SSOVERHANG + sgrna
-    reverse = ASOVERHANG + reverse_complement(sgrna)
+    forward = FORWARD_OVERHANG + sgrna
+    reverse = REVERSE_OVERHANG + reverse_complement(sgrna)
     return forward, reverse
 
 
@@ -66,10 +66,10 @@ def print_oligo(forward, reverse, overhang=0):
 def main():
     oligos = [make_oligos(sgrna) for sgrna in SGRNA]
     print("-" * 88 + "\n")
-    for n, oligo in enumerate(oligos):
-        print(NAME + f"{n+1}_forward: 5'-{oligo[0]}-3' ({len(oligo[0])} bases)")
-        print(NAME + f"{n+1}_reverse: 5'-{oligo[1]}-3'\n")
-        print_oligo(oligo[0], oligo[1], 4)
+    for n, (forward, reverse) in enumerate(oligos):
+        print(NAME + f"{n+1}_forward: 5'-{forward}-3' ({len(forward)} bases)")
+        print(NAME + f"{n+1}_reverse: 5'-{reverse}-3'\n")
+        print_oligo(forward, reverse, 4)
         print("-" * 88)
         print("")
 

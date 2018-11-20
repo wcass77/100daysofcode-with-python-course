@@ -1,6 +1,6 @@
 import pytest
 
-from sgRNA import (ASOVERHANG, SSOVERHANG, complement, main, make_oligos,
+from sgRNA import (REVERSE_OVERHANG, FORWARD_OVERHANG, complement, main, make_oligos,
                    reverse_complement)
 
 
@@ -57,8 +57,8 @@ def test_make_oligos():
 
     assert len(forward) == 24
     assert len(reverse) == 24
-    assert forward[0:4] == SSOVERHANG
-    assert reverse[0:4] == ASOVERHANG
+    assert forward[0:4] == FORWARD_OVERHANG
+    assert reverse[0:4] == REVERSE_OVERHANG
     assert forward[4:] == sgrna
     assert reverse[4:] == reverse_complement(sgrna)
 
@@ -68,8 +68,8 @@ def test_make_oligos_starting_G():
 
     assert len(forward) == 23
     assert len(reverse) == 23
-    assert forward[0:4] == SSOVERHANG
-    assert reverse[0:4] == ASOVERHANG
+    assert forward[0:4] == FORWARD_OVERHANG
+    assert reverse[0:4] == REVERSE_OVERHANG
     assert forward[4:] == sgrna[1:]
     assert reverse[4:] == reverse_complement(sgrna[1:])
 
