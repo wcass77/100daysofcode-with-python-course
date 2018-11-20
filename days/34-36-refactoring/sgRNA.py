@@ -60,9 +60,9 @@ def print_oligo(forward, reverse, overhang=0):
     if overhang < 0:
         reverse = reverse + " " * overhang
     rungs = ["|" if reverse[n] != " " else " " for n, _ in enumerate(forward)]
-    print("5' -", *forward, "- 3'")  # * unpacks so that there is a space between bases
-    print(" " * 4, *rungs)
-    print("3' -", *reverse, "- 5'")
+    click.echo(" ".join(["5' -"] + list(forward) + ["- 3'"]))
+    click.echo(" ".join(["" for _ in range(overhang + 1)] + rungs))
+    click.echo(" ".join(["3' -"] + list(reverse) + ["- 5'"]))
 
 
 @click.command()
@@ -73,13 +73,13 @@ def main(
     rev_overhang=REVERSE_OVERHANG,
 ):
     oligos = [make_oligos(sgrna, for_overhang, rev_overhang) for sgrna in sgrnas]
-    print("-" * 88 + "\n")
+    click.echo("-" * 88 + "\n")
     for n, (forward, reverse) in enumerate(oligos):
-        print(name + f"{n+1}_forward: 5'-{forward}-3' ({len(forward)} bases)")
-        print(name + f"{n+1}_reverse: 5'-{reverse}-3'\n")
+        click.echo(name + f"{n+1}_forward: 5'-{forward}-3' ({len(forward)} bases)")
+        click.echo(name + f"{n+1}_reverse: 5'-{reverse}-3'\n")
         print_oligo(forward, reverse, len(for_overhang))
-        print("-" * 88)
-        print("")
+        click.echo("-" * 88)
+        click.echo("")
 
 
 if __name__ == "__main__":
