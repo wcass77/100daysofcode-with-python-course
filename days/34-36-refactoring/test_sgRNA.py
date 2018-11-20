@@ -1,6 +1,7 @@
 import pytest
 
-from sgRNA import complement, main, reverse_complement
+from sgRNA import (ASOVERHANG, SSOVERHANG, complement, main, make_oligos,
+                   reverse_complement)
 
 
 def test_main(capsys):
@@ -48,3 +49,27 @@ def test_reverse_complement_input():
         reverse_complement("AC GT")
     with pytest.raises(Exception):
         reverse_complement("NATGC")
+
+
+def test_make_oligos():
+    sgrna = "ACGT" * 5
+    forward, reverse = make_oligos(sgrna)
+
+    assert len(forward) == 24
+    assert len(reverse) == 24
+    assert forward[0:4] == SSOVERHANG
+    assert reverse[0:4] == ASOVERHANG
+    assert forward[4:] == sgrna
+    assert reverse[4:] == reverse_complement(sgrna)
+
+def test_make_oligos_starting_G():
+    sgrna = "GCAT" * 5
+    forward, reverse = make_oligos(sgrna)
+
+    assert len(forward) == 23
+    assert len(reverse) == 23
+    assert forward[0:4] == SSOVERHANG
+    assert reverse[0:4] == ASOVERHANG
+    assert forward[4:] == sgrna[1:]
+    assert reverse[4:] == reverse_complement(sgrna[1:])
+
