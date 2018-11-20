@@ -70,12 +70,13 @@ def print_oligo(forward, reverse, overhang=0):
 
 
 @click.command()
-def main(
-    sgrnas=SGRNA,
-    name=NAME,
-    for_overhang=FORWARD_OVERHANG,
-    rev_overhang=REVERSE_OVERHANG,
-):
+@click.option("--name", default=NAME)
+@click.option("--for_overhang", default=FORWARD_OVERHANG)
+@click.option("--rev_overhang", default=REVERSE_OVERHANG)
+@click.argument("sgrnas", nargs=-1, required=False)
+def main(name, for_overhang, rev_overhang, sgrnas):
+    if len(sgrnas) == 0:
+        sgrnas = SGRNA
     oligos = [make_oligos(sgrna, for_overhang, rev_overhang) for sgrna in sgrnas]
     click.echo("-" * 88 + "\n")
     for n, (forward, reverse) in enumerate(oligos):
