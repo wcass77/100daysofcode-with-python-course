@@ -17,7 +17,7 @@ def complement(base):
     """
     Return the complementary DNA base
     """
-    complements = {'A': 'T', 'T': 'A', 'G': 'C', 'C': 'G'}
+    complements = {"A": "T", "T": "A", "G": "C", "C": "G"}
     try:
         return complements[base]
     except KeyError:
@@ -32,6 +32,12 @@ def reverse_complement(seq):
 
 
 def make_oligos(sgrna):
+    """
+    Takes sgrna, a 20 BP sequence representing the target for the sgRNA. The function
+    returns the oligos that need to be ordered, with the appropriate overhangs. If the
+    first base is G, it is omitted in favor of the G in the last position of the
+    overhang. The returned oligos are either 24 or 23 bases each.
+    """
     if len(sgrna) != 20:
         raise TypeError("The sgRNA sequence must be 20 BP long")
     if sgrna[0] == "G":  # Trim because there is G in overhang
@@ -56,6 +62,7 @@ def print_oligo(forward, reverse, overhang=0):
     print(" " * 4, *rungs)
     print("3' -", *reverse, "- 5'")
 
+
 def main():
     oligos = [make_oligos(sgrna) for sgrna in SGRNA]
     print("-" * 88 + "\n")
@@ -65,6 +72,7 @@ def main():
         print_oligo(oligo[0], oligo[1], 4)
         print("-" * 88)
         print("")
+
 
 if __name__ == "__main__":
     main()
