@@ -13,6 +13,7 @@ pytest-cov = "*"
 requests = "*"
 wget = "*"
 logbook = "*"
+click = "*"
 
 [dev-packages]
 

@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "438b239a7848af7e95265a46b9ed1db014de3672fd3f30392396e2a02ecb3635"
+            "sha256": "9559a28f1c84cf20fa3bf108098d917f3fc5e0d3ab2cfe75d328584c1e5266b5"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -101,6 +101,7 @@
                 "sha256:2335065e6395b9e67ca716de5f7526736bfa6ceead690adf616d925bdc622b13",
                 "sha256:5b94b49521f6456670fdb30cd82a4eca9412788a93fa6dd6df72c94d5a8ff2d7"
             ],
+            "index": "pypi",
             "version": "==7.0"
         },
         "codecov": {
@@ -376,10 +377,10 @@
         },
         "notebook": {
             "hashes": [
-                "sha256:b85e4de3d54cf4f14fe1d0515a980ccb49ddd4cdd21250cc0d4fb6374d50b1a7",
-                "sha256:ddb713d15a3205d7d3beab11f7fa9e3b10dbe0a2fff034a7db22ec8a2bc47a8b"
+                "sha256:661341909008d1e7bfa1541904006f9789fa3de1cbec8379d2879819454cc04b",
+                "sha256:91705b109fc785198faed892489cddb233265564d5e2dad5e4f7974af05ee8dd"
             ],
-            "version": "==5.7.0"
+            "version": "==5.7.2"
         },
         "pandocfilters": {
             "hashes": [
@@ -462,17 +463,17 @@
         },
         "pyrsistent": {
             "hashes": [
-                "sha256:f64dd1b706c31f7aa24495a7da58c0407c072981289b675331e2a16364355102"
+                "sha256:5a31f6b093da3401fefdeb53a0980e3145bb9d2bf852b579cc7b39c7f0016c87"
             ],
-            "version": "==0.14.5"
+            "version": "==0.14.6"
         },
         "pytest": {
             "hashes": [
-                "sha256:3f193df1cfe1d1609d4c583838bea3d532b18d6160fd3f55c9447fdca30848ec",
-                "sha256:e246cf173c01169b9617fc07264b7b1316e78d7a650055235d6d897bc80d9660"
+                "sha256:488c842647bbeb350029da10325cb40af0a9c7a2fdda45aeb1dda75b60048ffb",
+                "sha256:c055690dfefa744992f563e8c3a654089a6aa5b8092dded9b6fafbd70b2e45a7"
             ],
             "index": "pypi",
-            "version": "==3.10.1"
+            "version": "==4.0.0"
         },
         "pytest-cov": {
             "hashes": [

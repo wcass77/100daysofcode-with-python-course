@@ -2,6 +2,8 @@
 Simple script to generate sense and antisense oligos for sgRNA.
 Hard-coded for construct addgene #52628.
 """
+import click
+
 # All 5' to 3'
 SGRNA = (  # The target sgRNA sequences - should be 20 BP
     "TCACCTGTCAGGAACACCAG",
@@ -31,7 +33,7 @@ def reverse_complement(seq):
     return "".join((complement(base) for base in reversed(seq)))
 
 
-def make_oligos(sgrna, for_overhang=FORWARD_OVERHANG, rev_overhang=REVERSE_OVERHANG):
+def make_oligos(sgrna, for_overhang, rev_overhang):
     """
     Takes sgrna, a 20 BP sequence representing the target for the sgRNA. The function
     returns the oligos that need to be ordered, with the appropriate overhangs. If the
@@ -63,6 +65,7 @@ def print_oligo(forward, reverse, overhang=0):
     print("3' -", *reverse, "- 5'")
 
 
+@click.command()
 def main(
     sgrnas=SGRNA,
     name=NAME,

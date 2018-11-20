@@ -1,11 +1,20 @@
 import pytest
 
-from sgRNA import (REVERSE_OVERHANG, FORWARD_OVERHANG, complement, main, make_oligos,
-                   reverse_complement)
+from sgRNA import (
+    FORWARD_OVERHANG,
+    REVERSE_OVERHANG,
+    complement,
+    main,
+    make_oligos,
+    reverse_complement,
+)
 
 
 def test_main(capsys):
-    main()
+    try:
+        main()
+    except SystemExit:  # Needed to catch the System Exit from Click
+        pass
     out, _ = capsys.readouterr()
     assert (
         out
@@ -53,7 +62,7 @@ def test_reverse_complement_input():
 
 def test_make_oligos():
     sgrna = "ACGT" * 5
-    forward, reverse = make_oligos(sgrna)
+    forward, reverse = make_oligos(sgrna, FORWARD_OVERHANG, REVERSE_OVERHANG)
 
     assert len(forward) == 24
     assert len(reverse) == 24
@@ -62,9 +71,10 @@ def test_make_oligos():
     assert forward[4:] == sgrna
     assert reverse[4:] == reverse_complement(sgrna)
 
+
 def test_make_oligos_starting_G():
     sgrna = "GCAT" * 5
-    forward, reverse = make_oligos(sgrna)
+    forward, reverse = make_oligos(sgrna, FORWARD_OVERHANG, REVERSE_OVERHANG)
 
     assert len(forward) == 23
     assert len(reverse) == 23
@@ -72,4 +82,3 @@ def test_make_oligos_starting_G():
     assert reverse[0:4] == REVERSE_OVERHANG
     assert forward[4:] == sgrna[1:]
     assert reverse[4:] == reverse_complement(sgrna[1:])
-
