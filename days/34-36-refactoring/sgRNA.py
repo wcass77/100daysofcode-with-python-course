@@ -93,4 +93,4 @@ def main(name, for_overhang, rev_overhang, sgrnas):
 
 
 if __name__ == "__main__":  # pragma: no cover
-    main()
+    main()  # pylint: disable=E1120

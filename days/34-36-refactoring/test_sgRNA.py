@@ -1,15 +1,8 @@
 import pytest
 from click.testing import CliRunner
 
-from sgRNA import (
-    FORWARD_OVERHANG,
-    REVERSE_OVERHANG,
-    complement,
-    main,
-    make_oligos,
-    print_oligo,
-    reverse_complement,
-)
+from sgRNA import (FORWARD_OVERHANG, REVERSE_OVERHANG, complement, main,
+                   make_oligos, print_oligo, reverse_complement)
 
 
 def test_main():
