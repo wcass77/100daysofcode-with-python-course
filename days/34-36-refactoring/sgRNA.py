@@ -31,7 +31,7 @@ def reverse_complement(seq):
     return "".join((complement(base) for base in reversed(seq)))
 
 
-def make_oligos(sgrna):
+def make_oligos(sgrna, for_overhang=FORWARD_OVERHANG, rev_overhang=REVERSE_OVERHANG):
     """
     Takes sgrna, a 20 BP sequence representing the target for the sgRNA. The function
     returns the oligos that need to be ordered, with the appropriate overhangs. If the
@@ -42,8 +42,8 @@ def make_oligos(sgrna):
         raise TypeError("The sgRNA sequence must be 20 BP long")
     if sgrna[0] == "G":  # Trim because there is G in overhang
         sgrna = sgrna[1:20]
-    forward = FORWARD_OVERHANG + sgrna
-    reverse = REVERSE_OVERHANG + reverse_complement(sgrna)
+    forward = for_overhang + sgrna
+    reverse = rev_overhang + reverse_complement(sgrna)
     return forward, reverse
 
 
@@ -69,7 +69,7 @@ def main(
     for_overhang=FORWARD_OVERHANG,
     rev_overhang=REVERSE_OVERHANG,
 ):
-    oligos = [make_oligos(sgrna) for sgrna in sgrnas]
+    oligos = [make_oligos(sgrna, for_overhang, rev_overhang) for sgrna in sgrnas]
     print("-" * 88 + "\n")
     for n, (forward, reverse) in enumerate(oligos):
         print(name + f"{n+1}_forward: 5'-{forward}-3' ({len(forward)} bases)")
