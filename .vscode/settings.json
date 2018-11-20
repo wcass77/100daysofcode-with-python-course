@@ -15,7 +15,18 @@
     "python.unitTest.nosetestsEnabled": false,
     "python.unitTest.pyTestEnabled": true,
     "cSpell.words": [
+        "ACCG",
+        "AGGGGAGTTCCATGCCTGAT",
+        "ASOVERHANG",
+        "ATGC",
+        "GTTAACTTCCCTCACCTGTC",
         "Gandolf",
+        "ITGA",
+        "SGRNA",
+        "SSOVERHANG",
+        "TCACCTGTCAGGAACACCAG",
+        "sgrna",
+        "tcacctgtcaggaacaccag",
         "ttack",
         "unaway"
     ],
