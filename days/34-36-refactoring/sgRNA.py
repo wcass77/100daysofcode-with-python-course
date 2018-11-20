@@ -57,11 +57,15 @@ def print_oligo(forward, reverse, overhang=0):
     reverse = reverse[::-1]
     if overhang > 0:
         reverse = " " * overhang + reverse
+        forward = forward + " " * overhang
     if overhang < 0:
-        reverse = reverse + " " * overhang
-    rungs = ["|" if reverse[n] != " " else " " for n, _ in enumerate(forward)]
+        reverse = reverse + " " * abs(overhang)
+        forward = " " * abs(overhang) + forward
+    rungs = [
+        " " if (reverse[n] == " " or b == " ") else "|" for n, b in enumerate(forward)
+    ]
     click.secho(" ".join(["5' -"] + list(forward) + ["- 3'"]), fg="green")
-    click.secho(" ".join(["" for _ in range(overhang + 1)] + rungs), fg="white")
+    click.secho(" " * 5 + " ".join(rungs), fg="white")
     click.secho(" ".join(["3' -"] + list(reverse) + ["- 5'"]), fg="red")
 
 
@@ -82,5 +86,5 @@ def main(
         click.echo("")
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     main()
