@@ -3,11 +3,11 @@ Simple script to generate sense and antisense oligos for sgRNA.
 Hard-coded for construct addgene #52628.
 """
 # All 5' to 3'
-SGRNA = [  # The target sgRNA sequences - should be 20 BP
+SGRNA = (  # The target sgRNA sequences - should be 20 BP
     "TCACCTGTCAGGAACACCAG",
     "AGGGGAGTTCCATGCCTGAT",
     "GTTAACTTCCCTCACCTGTC",
-]
+)
 FORWARD_OVERHANG = "ACCG"  # The overhang that goes in front of the forward strand
 REVERSE_OVERHANG = "AAAC"  # The overhang that goes in front of the reverse strand
 NAME = "ITGA10_sgi"  # The base name constructs
@@ -63,13 +63,18 @@ def print_oligo(forward, reverse, overhang=0):
     print("3' -", *reverse, "- 5'")
 
 
-def main():
-    oligos = [make_oligos(sgrna) for sgrna in SGRNA]
+def main(
+    sgrnas=SGRNA,
+    name=NAME,
+    for_overhang=FORWARD_OVERHANG,
+    rev_overhang=REVERSE_OVERHANG,
+):
+    oligos = [make_oligos(sgrna) for sgrna in sgrnas]
     print("-" * 88 + "\n")
     for n, (forward, reverse) in enumerate(oligos):
-        print(NAME + f"{n+1}_forward: 5'-{forward}-3' ({len(forward)} bases)")
-        print(NAME + f"{n+1}_reverse: 5'-{reverse}-3'\n")
-        print_oligo(forward, reverse, 4)
+        print(name + f"{n+1}_forward: 5'-{forward}-3' ({len(forward)} bases)")
+        print(name + f"{n+1}_reverse: 5'-{reverse}-3'\n")
+        print_oligo(forward, reverse, len(for_overhang))
         print("-" * 88)
         print("")
 
