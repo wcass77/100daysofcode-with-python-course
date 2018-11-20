@@ -2,6 +2,8 @@
 Simple script to generate sense and antisense oligos for sgRNA.
 Hard-coded for construct addgene #52628.
 """
+import sys
+
 import click
 
 # All 5' to 3'
@@ -77,6 +79,9 @@ def print_oligo(forward, reverse, overhang=0):
 def main(name, for_overhang, rev_overhang, sgrnas):
     if len(sgrnas) == 0:
         sgrnas = SGRNA
+    if len(for_overhang) != len(rev_overhang):
+        click.echo("Unequal overhangs not supported")
+        sys.exit(1)
     oligos = [make_oligos(sgrna, for_overhang, rev_overhang) for sgrna in sgrnas]
     click.echo("-" * 88 + "\n")
     for n, (forward, reverse) in enumerate(oligos):
