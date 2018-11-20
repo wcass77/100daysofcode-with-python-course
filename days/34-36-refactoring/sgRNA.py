@@ -60,9 +60,9 @@ def print_oligo(forward, reverse, overhang=0):
     if overhang < 0:
         reverse = reverse + " " * overhang
     rungs = ["|" if reverse[n] != " " else " " for n, _ in enumerate(forward)]
-    click.echo(" ".join(["5' -"] + list(forward) + ["- 3'"]))
-    click.echo(" ".join(["" for _ in range(overhang + 1)] + rungs))
-    click.echo(" ".join(["3' -"] + list(reverse) + ["- 5'"]))
+    click.secho(" ".join(["5' -"] + list(forward) + ["- 3'"]), fg="green")
+    click.secho(" ".join(["" for _ in range(overhang + 1)] + rungs), fg="white")
+    click.secho(" ".join(["3' -"] + list(reverse) + ["- 5'"]), fg="red")
 
 
 @click.command()
