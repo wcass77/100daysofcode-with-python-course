@@ -17,15 +17,11 @@ def complement(base):
     """
     Return the complementary DNA base
     """
-    if base == "A":
-        return "T"
-    if base == "T":
-        return "A"
-    if base == "G":
-        return "C"
-    if base == "C":
-        return "G"
-    raise ValueError("Invalid DNA base. Must be uppercase ATGC")
+    complements = {'A': 'T', 'T': 'A', 'G': 'C', 'C': 'G'}
+    try:
+        return complements[base]
+    except KeyError:
+        raise ValueError("Invalid DNA base. Must be uppercase ATGC")
 
 
 def reverse_complement(seq):
