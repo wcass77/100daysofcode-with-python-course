@@ -18,18 +18,17 @@ Watch *Parsing JSON nested dicts* to get a first hand look how to do this.
 
 Use the rest of this day to play around with the included JSON data provided in the repo using the methods detailed in the video. Carve up that nested dict!
 
-## Day N+2: Your Turn!
+## Day N+2: Your Turn
 
-Day 3 means it's your turn! Head over to [PyBites Code Challenge 16](https://codechalleng.es/challenges/16/) and query your favourite API.
+Day 3 means it's your turn! Head over to [PyBites Code Challenge 16](https://codechalleng.es/challenges/16/) and query your favorite API.
 
-A great choice is the [OMDb API](http://www.omdbapi.com/) to query your favourite movies.
+A great choice is the [OMDb API](http://www.omdbapi.com/) to query your favorite movies.
 
 Either way, use an API that returns JSON formatted data. Come up with an inventive way to present or request the data. Try allowing the user to enter a movie that you use to query the DB and return data for.
 
 Enjoy!
 
-
-### Time to share what you've accomplished!
+### Time to share what you've accomplished
 
 Be sure to share your last couple of days work on Twitter or Facebook. Use the hashtag **#100DaysOfCode**.
 
