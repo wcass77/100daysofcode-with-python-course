@@ -1,4 +1,5 @@
 import os.path
+import sys
 
 import bs4
 
@@ -20,4 +21,9 @@ def main(force_download=False):
 
 
 if __name__ == "__main__":
-    main()
+    if len(sys.argv) == 1:
+        main()
+    elif len(sys.argv) == 2 and sys.argv[1] == "-d":
+        main(force_download=True)
+    else:
+        print("Invalid argument: Valid arguments are: -d or none")
