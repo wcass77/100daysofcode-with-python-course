@@ -14,6 +14,7 @@ requests = "*"
 wget = "*"
 logbook = "*"
 click = "*"
+bs4 = "*"
 
 [dev-packages]
 
