@@ -13,5 +13,5 @@ def main():
         print(f"{i+1}. {episode['id']}: {episode['title']}")
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     main()
